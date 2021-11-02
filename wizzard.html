@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html>
+    <meta name="robots" content="noindex" />
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta
+        name="keywords"
+        content="Open Data, Daten, Datenbanken, Datenbankwerk"
+    />
+    <meta name="author" content="OK Lab Köln" />
+    <meta name="title" content="OpenDataWizzard" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f1f1f1;
+        }
+
+        .impress {
+            position: relative;
+            right: 0px;
+        }
+        .impress:hover {
+            cursor: pointer;
+        }
+
+        #regForm {
+            background-color: #ffffff;
+            margin: 100px auto;
+            padding: 40px;
+            width: 70%;
+            min-width: 300px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            /*width: 100%;*/
+            font-size: 17px;
+            border: 1px solid #aaaaaa;
+        }
+
+        /* Mark input boxes that gets an error on validation: */
+        input.invalid {
+            background-color: #ffdddd;
+        }
+
+        /* Hide all steps by default: */
+        .tab {
+            display: none;
+        }
+
+        button {
+            background-color: #04aa6d;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        #prevBtn {
+            background-color: #cd5c5c;
+        }
+
+        .redButton {
+            background-color: #cd5c5c;
+        }
+
+        /* Make circles that indicate the steps of the form: */
+        .step {
+            height: 15px;
+            width: 15px;
+            margin: 0 2px;
+            background-color: #bbbbbb;
+            border: none;
+            border-radius: 50%;
+            display: inline-block;
+            opacity: 0.5;
+        }
+
+        .step.active {
+            opacity: 1;
+        }
+
+        /* Mark the steps that are finished and valid: */
+        .step.finish {
+            background-color: #04aa6d;
+        }
+
+        .step.finishred {
+            background-color: red;
+        }
+
+        .reddot {
+            height: 25px;
+            width: 25px;
+            background-color: red;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .impressDiv {
+        }
+    </style>
+    <body>
+        <title>OpenDataWizzard</title>
+
+        <form id="regForm">
+            <div style="display: none" id="impressDiv">
+                <h1>Impressum & Datenschutz&shy;erklärung</h1>
+                <h4>
+                    Die Webseite wurde vom
+                    <a target="_blank" href="https://www.codefor.de"
+                        >OKLAB</a
+                    >
+                    erstellt.<br />
+                    todo...
+                <button
+                    style="float: right"
+                    type="button"
+                    onclick="closeImpress()"
+                >
+                    Schließen
+                </button>
+                <p>&nbsp;</p>
+            </div>
+            <div id="wizzardDiv">
+                <div id="tab_0">
+                    <h1>Open&shy;Data&shy;Wizzard</h1>
+                    <p>
+                        <strong
+                            >Anbei eine kleine Hilfestellung um Daten und deren
+                            Sammlungen optimal für alle verfügbar zu
+                            machen.</strong
+                        >
+                    </p>
+                    <details>
+                        <summary>
+                            Freie Lizenzen gibt es viele, leider sind diese
+                            zumeist miteinander nicht kompatibel, oder sogar gar
+                            nicht für Daten geeignet.
+                        </summary>
+                        <p>
+                            Eine Übersicht über freie Lizenzen findet sich im
+                            <a
+                                target="_blank"
+                                href="https://ifross.github.io/ifrOSS/Lizenzcenter"
+                                >Lizenz-Center des Institutes für Rechtsfragen
+                                der Freien und Open Source Software</a
+                            >.
+                        </p>
+                        <p>
+                            Viele Lizenzen sind für Daten allerdings gar nicht
+                            geeignet, da diese das Leistungsschutzrecht des
+                            Datenbankherstellers (<a
+                                target="_blank"
+                                href="https://www.gesetze-im-internet.de/urhg/BJNR012730965.html#BJNR012730965BJNG004301377"
+                                >§ 87 a ff. UrhG</a
+                            >) gar nicht berücksichtigen (mehr dazu später).
+                            Dies gilt z.B. für die ersten drei Versionen der
+                            recht beliebten
+                            <a
+                                target="_blank"
+                                href="https://de.creativecommons.net/start/"
+                                >Creative Commons</a
+                            >
+                            Lizenzen.
+                        </p>
+                        <p>
+                            Inkompatibilitäten von freien Lizenzen sind leider
+                            ein großes Problem. Die von der
+                            <a
+                                target="_blank"
+                                href="https://ec.europa.eu/jrc/en/news/commission-makes-it-even-easier-citizens-reuse-all-information-it-publishes-online"
+                            >
+                                EU empfohlene Lizenz</a
+                            >
+                            für Daten, die
+                            <a
+                                target="_blank"
+                                href="https://creativecommons.org/licenses/by/4.0/#:~:text=Attribution%204.0%20International,CC%20BY%204.0"
+                                >Attribution 4.0 International (CC BY 4.0)</a
+                            >
+                            Lizenz, ist z.B. laut diesem
+                            <a
+                                target="_blank"
+                                href="https://open.nrw/system/files/media/document/file/opennrw_rechtl_gutachten_datenlizenzen_lowres_web.pdf"
+                                >Rechtsgutachten</a
+                            >
+                            nur bedingt kompatibel mit der vom
+                            <a
+                                target="_blank"
+                                href="https://www.bva.bund.de/SharedDocs/Downloads/DE/Behoerden/Beratung/Methoden/open_data_faq.pdf?__blob=publicationFile&v=2"
+                                >Bund empfohlenen Lizenz für Verwaltungsdaten</a
+                            >, der
+                            <a
+                                target="_blank"
+                                href="https://www.govdata.de/dl-de/by-2-0"
+                                >Datenlizenz Deutschland – Namensnennung –
+                                Version 2.0</a
+                            >.
+                        </p>
+                    </details>
+                    <p>
+                        <strong
+                            >Schritt für Schritt werden im Folgenden die
+                            Unterschiede zwischen Daten, Datensätzen,
+                            Datenbanken und Datenbankwerken erklärt und
+                            Hilfestellungen bei der Lizenzierung gegeben. Daten
+                            brauchen eigentlich gar keine Lizenz, doch dazu
+                            gleich mehr.</strong
+                        >
+                    </p>
+                    <div style="overflow: auto">
+                        <div style="float: right">
+                            <button
+                                type="button"
+                                id="intro"
+                                onclick="step('tab_0', 'intro')"
+                            >
+                                Weiter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab_1" class="tab">
+                    <h1>Daten</h1>
+                    <p>
+                        <strong
+                            >Daten im Sinne von Informationen und Fakten sind
+                            keine urheberrechtlich geschützten Werke</strong
+                        >, siehe
+                        <a
+                            target="_blank"
+                            href="https://www.gesetze-im-internet.de/urhg/__2.html"
+                            >Gesetz über Urheberrecht und verwandte Schutzrechte
+                            (Urheberrechtsgesetz) - § 2 Geschützte Werke</a
+                        >.
+                    </p>
+                    <p>
+                        Im Unterschied zu Werken (Texte, Software, Fotos, etc.)
+                        fehlt hier die persönliche geistige Schöpfung.
+                    </p>
+                    <p>
+                        <code
+                            >Beispiel Daten im JSON Format: {"Temperatur [°C]" :
+                            10.1}</code
+                        >
+                    </p>
+                    <p>
+                        <strong
+                            >Daten können jedoch auch anderen Schutzrechten
+                            unterliegen:</strong
+                        >
+                    </p>
+                    <ul>
+                        <li>Personenbezogene Daten</li>
+                        <li>Betriebsgeheimnisse</li>
+                        <li>Verträge</li>
+                        <li>...</li>
+                    </ul>
+                    <p>
+                        <strong>Ist dies bei den Daten der Fall?</strong> Bei
+                        einer Unsicherheit ist dies in jedem Fall vorab zu
+                        prüfen!
+                    </p>
+
+                    <div style="overflow: auto">
+                        <div style="float: right">
+                            <button
+                                type="button"
+                                class="redButton"
+                                onclick="step('tab_1', 'no')"
+                            >
+                                Nein
+                            </button>
+                            <button
+                                type="button"
+                                onclick="step('tab_1', 'yes')"
+                            >
+                                Ja
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab_2" class="tab">
+                    <h1>Daten&shy;sätze</h1>
+                    <p>
+                        Daten liegen in vielen Fällen in Datensätzen vor, bei
+                        denen es mehrere Felder zu einem Objekt gibt.
+                    </p>
+                    <p>
+                        <code
+                            >Beispiel Datensatz im JSON Format:<br />
+                            {"ID" : 1255858,<br />
+                            &nbsp;"Temperatur [°C]" : 10.1,<br />
+                            &nbsp;"Zeitstempel" :
+                            "2021-08-01T12:00:00+01:00",<br />
+                            &nbsp;"Bemerkung" : "Northeast toward the garden. A
+                            little sensor measures the actual data."}</code
+                        >
+                    </p>
+                    <p>
+                        <strong
+                            >Oft werden Daten im Datensatz angereichert mit
+                            Werken, wie z.B. Texten, Bildern oder
+                            Diagrammen.</strong
+                        >
+                        <br />
+                        Die Bemerkung im Beispieldatensatz wäre ein solches Werk
+                        (wie Ihr merkt, kommt es hier nicht auf die Qualität
+                        an).<br />
+                        Ausgenommen hiervon sind rein technische Beschreibungen.
+                    </p>
+                    <p><strong>Ist dies bei dem Datensatz der Fall?</strong></p>
+                    <div style="overflow: auto">
+                        <div style="float: right">
+                            <button
+                                type="button"
+                                class="redButton"
+                                onclick="step('tab_2', 'no')"
+                            >
+                                Nein
+                            </button>
+                            <button
+                                type="button"
+                                onclick="step('tab_2', 'yes')"
+                            >
+                                Ja
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab_3" class="tab">
+                    <h1>Sammlungen von Daten - Daten&shy;banken</h1>
+                    <p>
+                        Daten liegen zumeist in strukturierten Sammlungen vor,
+                        den Datenbanken.
+                    </p>
+                    <p>
+                        <code
+                            >Beispiel im JSON Format:<br />
+                            [{ "Durchschnittstemperatur [°C]" : 8.5, "Luftdruck
+                            [hPa]" : 1000.4, "Datum" : "16.01.2020"},<br />
+                            { "Durchschnittstemperatur [°C]" : 8.8, "Luftdruck
+                            [hPa]" : 1000.8, "Datum" : "17.01.2020"}]</code
+                        >
+                    </p>
+                    <p>
+                        Bei einer Datenbank handelt sich um eine Sammlung mit
+                        einer einfachen systematischen Anordnung (chronologisch,
+                        alphabetisch oder numerisch), oder mittels
+                        Standardformaten (z.B. GeoJson) oder auf Basis
+                        definierter Vorschriften.
+                    </p>
+                    <details>
+                        <summary>
+                            Die Ersteller*innen der Datenbank können sich
+                            optional (!) auf
+                            <a
+                                target="_blank"
+                                href="https://www.gesetze-im-internet.de/urhg/BJNR012730965.html#BJNR012730965BJNG004301377"
+                                >§ 87 a ff. UrhG - Schutz des
+                                Datenbankherstellers</a
+                            >
+                            berufen.
+                        </summary>
+                        <p>
+                            Hier handelt es sich um ein
+                            <a
+                                target="_blank"
+                                href="https://de.wikipedia.org/wiki/Sui_generis"
+                                >Sui-generis</a
+                            >-Schutzrecht für Datenbanken. Da eigentlich keine
+                            geistige Schöpfung vorliegt, und das Ganze nicht so
+                            recht in das Urheberrecht passt, wurde sich hier mit
+                            einem einzigartigen Recht geholfen.
+                        </p>
+                        <p>
+                            Voraussetzung ist, dass eine wesentliche Investition
+                            vorliegt, wobei die Schwelle hier sehr niedrig ist.
+                        </p>
+                        <p>
+                            Interessant ist, dass dann unwesentliche Teile einer
+                            Datenbank durch Dritte frei genutzt werden können.
+                            Auch hier ist die Definition wieder herrlich
+                            schwammig, aber die Jurist*innen wollen ja auch noch
+                            etwas zu tun haben.
+                        </p>
+                        <p>
+                            Das Leistungsschutzrecht erlischt schon 15 Jahre
+                            nach der Veröffentlichung der Datenbank. Zum
+                            Vergleich dazu erlischt das Urheberrecht erst 70
+                            Jahren nach dem Tod des Urhebers.
+                        </p>
+                    </details>
+                    <p>
+                        <strong
+                            >Liegen die Daten in einer Datenbank vor?</strong
+                        >
+                    </p>
+                    <div style="overflow: auto">
+                        <div style="float: right">
+                            <button
+                                type="button"
+                                class="redButton"
+                                onclick="step('tab_3', 'no')"
+                            >
+                                Nein
+                            </button>
+                            <button
+                                type="button"
+                                onclick="step('tab_3', 'yes')"
+                            >
+                                Ja
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab_4" class="tab">
+                    <h1>Sammlungen von Daten - Daten&shy;bank&shy;werke</h1>
+                    <p>
+                        Eine besondere Form einer strukturierten Sammlungen ist
+                        ein Datenbankwerk.
+                    </p>
+                    <p>
+                        <strong
+                            >Bei einem Datenbankwerk handelt es sich um eine
+                            systematische Sammlung von Daten jenseits einer
+                            einfachen Anordnung.</strong
+                        >
+                    </p>
+                    <p>
+                        Beispiel BGH Urteil:
+                        <a
+                            target="_blank"
+                            href="https://www.telemedicus.info/urteil/bgh-gedichttitelliste-i/"
+                        >
+                            Gedichttitelliste</a
+                        ><br />
+                    </p>
+                    <p>
+                        <code
+                            >Beispiel im JSON Format: [{"Titel" : "Titel1",
+                            "Autor*in" : "Autor*in1"}, ...]</code
+                        >
+                    </p>
+                    <p>
+                        Hier greift dann wieder das Urheberrecht, da im Falle
+                        des Beispieles die Auswahl eine eigene geistige
+                        Schöpfung darstellt.
+                    </p>
+                    <p><strong>Trifft dies hier zu?</strong></p>
+                    <div style="overflow: auto">
+                        <div style="float: right">
+                            <button
+                                type="button"
+                                class="redButton"
+                                onclick="step('tab_4', 'no')"
+                            >
+                                Nein
+                            </button>
+                            <button
+                                type="button"
+                                onclick="step('tab_4', 'yes')"
+                            >
+                                Ja
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daten -->
+                <div id="data" class="tab">
+                    <h1>Empfehlung</h1>
+                    <p>
+                        Daten im Sinne von Informationen und Fakten sind
+                        urheberrechtlich nicht geschützt und müssen auch mit
+                        keiner Lizenz versehen werden.
+                    </p>
+                    <p>
+                        <strong
+                            >Es wird trotzdem empfohlen die Daten mit der
+                            Public-Domain-Erklärung
+                            <a
+                                target="_blank"
+                                href="https://creativecommons.org/publicdomain/zero/1.0/"
+                                >CC0 1.0 Universal (CC0 1.0) Public Domain
+                                Dedication</a
+                            >
+                            zu versehen, um dritten den rechtlichen Status zu
+                            verdeutlichen.</strong
+                        >
+                    </p>
+                </div>
+
+                <!-- Daten Uhrg -->
+                <div id="data_urhg" class="tab">
+                    <h1>Empfehlung</h1>
+                    <p>Gegenstand: Werke</p>
+                    <p>
+                        Rechtsvorschrift:
+                        <a
+                            target="_blank"
+                            href="https://www.gesetze-im-internet.de/urhg/__2.html"
+                            >Urheberrechtsgesetz</a
+                        >
+                    </p>
+                    <p>
+                        Daten im Sinne von Informationen und Fakten sind
+                        urheberrechtlich nicht geschützt und müssen auch mit
+                        keiner Lizenz versehen werden. Hier wurden die Daten
+                        aber mit urheberrechtlich geschützen Werken
+                        angereichert.
+                    </p>
+                    <p>
+                        <strong
+                            >Es wird empfohlen den Datensatz mit der
+                            Public-Domain-Erklärung
+                            <a
+                                target="_blank"
+                                href="https://creativecommons.org/publicdomain/zero/1.0/"
+                                >CC0 1.0 Universal (CC0 1.0) Public Domain
+                                Dedication</a
+                            >
+                            zu versehen.</strong
+                        >
+                    </p>
+                    Der in der CC0 enthaltene Haftungsausschluss ist allerdings
+                    nicht mit dem deutschen Recht kompatibel.<br />
+                    Es steht im Lizenztext aber auch drin, dass wenn eine
+                    Klausel dieser Lizenz nach dem Recht des jeweiligen Staates
+                    rechtlich unwirksam ist, an ihrer Stelle die gesetzlichen
+                    Regelungen gelten soll. Ob dies allerdings in jedem Fall
+                    wirksam ist, ist fraglich.<br />
+                    <a
+                        target="_blank"
+                        href="https://hup.sub.uni-hamburg.de/volltexte/2019/195/pdf/HamburgUP_KreutzerLahmann_Rechtsfragen.pdf"
+                        >Kreutzer und Lahmann (2019)</a
+                    >
+                    schätzen das Risiko jedoch als marginal ein.
+                    <p>
+                        In jedem Falle seid Ihr für Eure geistigen Schöpfungen
+                        aber nach deutschem Recht haftbar. Das Urheberrecht
+                        erlischt erst siebzig Jahre nach dem Tode des Urhebers
+                        (<a
+                            target="_blank"
+                            href="https://www.gesetze-im-internet.de/urhg/__64.html"
+                            >§ 64 UrhG</a
+                        >).
+                    </p>
+                </div>
+
+                <!-- Daten & Datenbank -->
+                <div id="data_database" class="tab">
+                    <h1>Empfehlung</h1>
+                    <p>
+                        Gegenstand: Optional
+                        <a
+                            target="_blank"
+                            href="https://www.gesetze-im-internet.de/urhg/__87a.html"
+                            >Datenbank</a
+                        >
+                    </p>
+                    <p>
+                        Rechtsvorschrift: Optionales
+                        <a
+                            target="_blank"
+                            href="http://www.gesetze-im-internet.de/urhg/BJNR012730965.html#BJNR012730965BJNG004301377"
+                            >Leistungsschutzrecht</a
+                        >, so weit wesentliche Investitionen vorliegen
+                    </p>
+                    <p>
+                        <strong
+                            >Es wird empfohlen die Datenbank trotzdem mit der
+                            Public-Domain-Erklärung
+                            <a
+                                target="_blank"
+                                href="https://creativecommons.org/publicdomain/zero/1.0/"
+                                >CC0 1.0 Universal (CC0 1.0) Public Domain
+                                Dedication</a
+                            >
+                            zu versehen, um dritten den rechtlichen Status zu
+                            verdeutlichen.</strong
+                        >
+                    </p>
+                    <details>
+                        <summary>
+                            Von einer Berufung auf das optionale
+                            Leistungsschutzrecht sollte im Sinne einer
+                            bestmöglichen Verfügbarkeit der Daten abgesehen
+                            werden.
+                        </summary>
+                        <p>
+                            Wenn sich denn unbedingt auf das
+                            Leistungsschutzrecht berufen werden soll, muss eine
+                            Lizenz verwendet werden, die auch auf diesen Fall
+                            zugeschnitten ist. Hier eignet sich z.B. die
+                            <a
+                                target="_blank"
+                                href="https://opendatacommons.org/licenses/odbl/"
+                                >Open Data Commons Open Database License
+                                (ODbL)</a
+                            >. Lizenzen, die auf das Urheberrecht abzielen, wie
+                            die weit verbreiteten ersten drei Versionen der
+                            <a
+                                target="_blank"
+                                href="https://creativecommons.org"
+                                >Creative Commons By Lizenzen</a
+                            >, passen hier nicht.
+                        </p>
+                        <p>
+                            Unwesentliche Teile der Datenbank können durch
+                            Dritte weiterhin frei genutzt werden. Dabei kann
+                            unwesentlich quantitativ bestimmt werden ( &lt 50%)
+                            oder qualitativ (erhebliche menschliche, technische
+                            oder finanzielle Investition). Eine systematische
+                            Vervielfältigung, Verbreitung oder öffentliche
+                            Wiedergabe von unwesentlichen Teilen der Datenbank
+                            ist ebenfalls nicht rechtens.
+                            <a
+                                target="_blank"
+                                href="https://www.uni-bremen.de/urheberrecht/wissensplattform/9-schutz-von-datenbanken"
+                                >Schutz von Datenbanken - Uni Bremen</a
+                            >
+                        </p>
+                        <p>
+                            Die Rechte des Datenbankherstellers erlöschen
+                            fünfzehn Jahre nach der Veröffentlichung der
+                            Datenbank, jedoch bereits fünfzehn Jahre nach der
+                            Herstellung, wenn die Datenbank innerhalb dieser
+                            Frist nicht veröffentlicht worden ist.
+                            <a
+                                target="_blank"
+                                href="http://www.gesetze-im-internet.de/urhg/__87d.html"
+                                >§ 87 d UrhG</a
+                            >
+                        </p>
+                    </details>
+                </div>
+
+                <!-- Daten & Datenbankwerk -->
+                <div id="data_database_work" class="tab">
+                    <h1>Empfehlung</h1>
+                    <p>
+                        Gegenstand:
+                        <a
+                            target="_blank"
+                            href="https://www.gesetze-im-internet.de/urhg/__4.html"
+                            >Datenbankwerk</a
+                        >
+                    </p>
+                    <p>
+                        Rechtsvorschrift:
+                        <a
+                            target="_blank"
+                            href="https://www.gesetze-im-internet.de/urhg/__2.html"
+                            >Urheberrechtsgesetz</a
+                        >
+                    </p>
+                    <p>
+                        Optionales
+                        <a
+                            target="_blank"
+                            href="http://www.gesetze-im-internet.de/urhg/BJNR012730965.html#BJNR012730965BJNG004301377"
+                            >Leistungsschutzrecht</a
+                        >
+                        bezüglich der Datenbank, so weit wesentliche
+                        Investitionen vorliegen
+                    </p>
+                    <p>
+                        <strong
+                            >Es wird empfohlen das Datenbankwerk mit der
+                            Public-Domain-Erklärung
+                            <a
+                                target="_blank"
+                                href="https://creativecommons.org/publicdomain/zero/1.0/"
+                                ><a
+                                    target="_blank"
+                                    href="https://creativecommons.org/publicdomain/zero/1.0/"
+                                    >CC0 1.0 Universal (CC0 1.0) Public Domain
+                                    Dedication</a
+                                ></a
+                            >
+                            zu versehen.</strong
+                        >
+                    </p>
+                    Der in der CC0 enthaltene Haftungsausschluss ist allerdings
+                    nicht mit dem deutschen Recht kompatibel.<br />
+                    Es steht im Lizenztext aber auch drin, dass wenn eine
+                    Klausel dieser Lizenz nach dem Recht des jeweiligen Staates
+                    rechtlich unwirksam ist, an ihrer Stelle die gesetzlichen
+                    Regelungen gelten soll. Ob dies allerdings in jedem Fall
+                    wirksam ist, ist fraglich.<br />
+                    <a
+                        target="_blank"
+                        href="https://hup.sub.uni-hamburg.de/volltexte/2019/195/pdf/HamburgUP_KreutzerLahmann_Rechtsfragen.pdf"
+                        >Kreutzer und Lahmann (2019)</a
+                    >
+                    schätzen das Risiko jedoch als marginal ein.
+                    <p>
+                        In jedem Falle seid Ihr für Eure geistigen Schöpfungen
+                        aber nach deutschem Recht haftbar. Das Urheberrecht
+                        erlischt erst siebzig Jahre nach dem Tode des Urhebers
+                        (<a
+                            target="_blank"
+                            href="https://www.gesetze-im-internet.de/urhg/__64.html"
+                            >§ 64 UrhG</a
+                        >).
+                    </p>
+                    <details>
+                        <summary>
+                            Von einer Berufung auf das optionale
+                            Leistungsschutzrecht sollte im Sinne einer
+                            bestmöglichen Verfügbarkeit der Daten abgesehen
+                            werden.
+                        </summary>
+                        <p>
+                            Wenn sich denn unbedingt auf das
+                            Leistungsschutzrecht berufen werden soll, muss eine
+                            Lizenz verwendet werden, die auch auf diesen Fall
+                            zugeschnitten ist. Hier eignet sich z.B. die
+                            <a
+                                target="_blank"
+                                href="https://opendatacommons.org/licenses/odbl/"
+                                >Open Data Commons Open Database License
+                                (ODbL)</a
+                            >. Lizenzen, die auf das Urheberrecht abzielen, wie
+                            die weit verbreiteten ersten drei Versionen der
+                            <a
+                                target="_blank"
+                                href="https://creativecommons.org"
+                                >Creative Commons By Lizenzen</a
+                            >, passen hier nicht.
+                        </p>
+                    </details>
+                </div>
+
+                <!-- Daten Urhg & Datenbankwerk -->
+                <div id="data_urhg_database_work" class="tab">
+                    <h1>Empfehlung</h1>
+                    <p>
+                        Gegenstand: Werke und
+                        <a
+                            target="_blank"
+                            href="https://www.gesetze-im-internet.de/urhg/__4.html"
+                            >Datenbankwerk</a
+                        >
+                    </p>
+                    <p>
+                        Rechtsvorschrift:
+                        <a
+                            target="_blank"
+                            href="https://www.gesetze-im-internet.de/urhg/__2.html"
+                            >Urheberrechtsgesetz</a
+                        >
+                    </p>
+                    <p>
+                        Optionales
+                        <a
+                            target="_blank"
+                            href="http://www.gesetze-im-internet.de/urhg/BJNR012730965.html#BJNR012730965BJNG004301377"
+                            >Leistungsschutzrecht</a
+                        >
+                        bezüglich der Datenbank, so weit wesentliche
+                        Investitionen vorliegen
+                    </p>
+                    <p>
+                        <strong
+                            >Es wird empfohlen, die Daten und das Datenbankwerk
+                            mit der Public-Domain-Erklärung
+                            <a
+                                target="_blank"
+                                href="https://creativecommons.org/publicdomain/zero/1.0/"
+                                >CC0 1.0 Universal (CC0 1.0) Public Domain
+                                Dedication</a
+                            >
+                            zu versehen.</strong
+                        >
+                    </p>
+                    Der in der CC0 enthaltene Haftungsausschluss ist allerdings
+                    nicht mit dem deutschen Recht kompatibel.<br />
+                    Es steht im Lizenztext aber auch drin, dass wenn eine
+                    Klausel dieser Lizenz nach dem Recht des jeweiligen Staates
+                    rechtlich unwirksam ist, an ihrer Stelle die gesetzlichen
+                    Regelungen gelten soll. Ob dies allerdings in jedem Fall
+                    wirksam ist, ist fraglich.<br />
+                    <a
+                        target="_blank"
+                        href="https://hup.sub.uni-hamburg.de/volltexte/2019/195/pdf/HamburgUP_KreutzerLahmann_Rechtsfragen.pdf"
+                        >Kreutzer und Lahmann (2019)</a
+                    >
+                    schätzen das Risiko jedoch als marginal ein.
+                    <p>
+                        In jedem Falle seid Ihr für Eure geistigen Schöpfungen
+                        aber nach deutschem Recht haftbar. Das Urheberrecht
+                        erlischt erst siebzig Jahre nach dem Tode des Urhebers
+                        (<a
+                            target="_blank"
+                            href="https://www.gesetze-im-internet.de/urhg/__64.html"
+                            >§ 64 UrhG</a
+                        >).
+                    </p>
+                    <details>
+                        <summary>
+                            Von einer Berufung auf das optionale
+                            Leistungsschutzrecht sollte im Sinne einer
+                            bestmöglichen Verfügbarkeit der Daten abgesehen
+                            werden.
+                        </summary>
+                        <p>
+                            Wenn sich denn unbedingt auf das
+                            Leistungsschutzrecht berufen werden soll, muss eine
+                            Lizenz verwendet werden, die auch auf diesen Fall
+                            zugeschnitten ist. Hier eignet sich z.B. die
+                            <a
+                                target="_blank"
+                                href="https://opendatacommons.org/licenses/odbl/"
+                                >Open Data Commons Open Database License
+                                (ODbL)</a
+                            >. Lizenzen, die auf das Urheberrecht abzielen, wie
+                            die weit verbreiteten ersten drei Versionen der
+                            <a
+                                target="_blank"
+                                href="https://creativecommons.org"
+                                >Creative Commons By Lizenzen</a
+                            >, passen hier nicht.
+                        </p>
+                    </details>
+                </div>
+
+                <!-- Daten Urhg & Datenbank -->
+                <div id="data_urhg_database" class="tab">
+                    <h1>Empfehlung</h1>
+                    <p>Gegenstand: Werke</p>
+                    <p>
+                        Rechtsvorschrift:
+                        <a
+                            target="_blank"
+                            href="https://www.gesetze-im-internet.de/urhg/__2.html"
+                            >Urheberrechtsgesetz</a
+                        >
+                    </p>
+                    <p>
+                        Optionales
+                        <a
+                            target="_blank"
+                            href="http://www.gesetze-im-internet.de/urhg/BJNR012730965.html#BJNR012730965BJNG004301377"
+                            >Leistungsschutzrecht</a
+                        >
+                        bezüglich der Datenbank, so weit wesentliche
+                        Investitionen vorliegen
+                    </p>
+                    <p>
+                        <strong
+                            >Es wird empfohlen, die Daten mit der
+                            Public-Domain-Erklärung
+                            <a
+                                target="_blank"
+                                href="https://creativecommons.org/publicdomain/zero/1.0/"
+                                >CC0 1.0 Universal (CC0 1.0) Public Domain
+                                Dedication</a
+                            >
+                            zu versehen.</strong
+                        >
+                    </p>
+                    Der in der CC0 enthaltene Haftungsausschluss ist allerdings
+                    nicht mit dem deutschen Recht kompatibel.<br />
+                    Es steht im Lizenztext aber auch drin, dass wenn eine
+                    Klausel dieser Lizenz nach dem Recht des jeweiligen Staates
+                    rechtlich unwirksam ist, an ihrer Stelle die gesetzlichen
+                    Regelungen gelten soll. Ob dies allerdings in jedem Fall
+                    wirksam ist, ist fraglich.<br />
+                    <a
+                        target="_blank"
+                        href="https://hup.sub.uni-hamburg.de/volltexte/2019/195/pdf/HamburgUP_KreutzerLahmann_Rechtsfragen.pdf"
+                        >Kreutzer und Lahmann (2019)</a
+                    >
+                    schätzen das Risiko jedoch als marginal ein.
+                    <p>
+                        In jedem Falle seid Ihr für Eure geistigen Schöpfungen
+                        aber nach deutschem Recht haftbar. Das Urheberrecht
+                        erlischt erst siebzig Jahre nach dem Tode des Urhebers
+                        (<a
+                            target="_blank"
+                            href="https://www.gesetze-im-internet.de/urhg/__64.html"
+                            >§ 64 UrhG</a
+                        >).
+                    </p>
+                    <details>
+                        <summary>
+                            Von einer Berufung auf das optionale
+                            Leistungsschutzrecht sollte im Sinne einer
+                            bestmöglichen Verfügbarkeit der Daten abgesehen
+                            werden.
+                        </summary>
+                        <p>
+                            Wenn sich denn unbedingt auf das
+                            Leistungsschutzrecht berufen werden soll, muss eine
+                            Lizenz verwendet werden, die auch auf diesen Fall
+                            zugeschnitten ist. Hier eignet sich z.B. die
+                            <a
+                                target="_blank"
+                                href="https://opendatacommons.org/licenses/odbl/"
+                                >Open Data Commons Open Database License
+                                (ODbL)</a
+                            >. Lizenzen, die auf das Urheberrecht abzielen, wie
+                            die weit verbreiteten ersten drei Versionen der
+                            <a
+                                target="_blank"
+                                href="https://creativecommons.org"
+                                >Creative Commons By Lizenz</a
+                            >, passen hier nicht.
+                        </p>
+                    </details>
+                </div>
+
+                <!-- andere Schutzrechte Daten -->
+                <div class="tab" id="data_other_rights_div">
+                    <span class="reddot"></span> &nbsp;Die Daten sind von
+                    anderen Schutzrechten betroffen
+                    <p>
+                        Wenn die Daten anderen Schutzrechten unterliegen, ist im
+                        Einzelfall genau zu prüfen, ob und wie diese Daten der
+                        Öffentlichkeit zur Verfügung gestellt werden können. Es
+                        kann hier leider keine pauschale Empfehlung gegeben
+                        werden.
+                    </p>
+                </div>
+
+                <div id="infos" class="tab">
+                    <details>
+                        <summary>Weitere Informationen</summary>
+                        <p>
+                            Es ist in vielen europäischen Ländern (z.B.
+                            Deutschland) nicht möglich auf sein Urheberrecht
+                            ganz zu verzichten und das Werk wie etwa im
+                            angloamerikanischen Raum einfach als Public Domain
+                            zu deklarieren. Deswegen muss ein Umweg über die
+                            Public Domain Erklärung genommen werden, um das Werk
+                            so weit wie möglich in die Gemeinfreiheit zu
+                            entlassen.
+                        </p>
+                    </details>
+                </div>
+
+                <div id="links" class="tab">
+                    <details>
+                        <summary>Links</summary>
+                        <ul>
+                            <li>
+                                <a
+                                    target="_blank"
+                                    href="https://hup.sub.uni-hamburg.de/volltexte/2019/195/pdf/HamburgUP_KreutzerLahmann_Rechtsfragen.pdf"
+                                    >Till Kreutzer und Henning Lahmann (2019):
+                                    Rechtsfragen bei Open Science - Ein
+                                    Leitfaden</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://zenodo.org/record/840652#.YCeJRGhKhaQ"
+                                    >Fact Sheet on Creative Commons & Open
+                                    Science</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://open.nrw/system/files/media/document/file/opennrw_rechtl_gutachten_datenlizenzen_lowres_web.pdf"
+                                    >Datenlizenzen für Open Government Data -
+                                    Rechtliches Kurzgutachten</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.uni-bremen.de/urheberrecht/wissensplattform/9-schutz-von-datenbanken"
+                                    >Schutz von Datenbanken - Uni Bremen</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.gesetze-im-internet.de/urhg/__2.html"
+                                    >Urheberrechtsgesetz</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="http://www.gesetze-im-internet.de/urhg/BJNR012730965.html#BJNR012730965BJNG004301377"
+                                    >Leistungsschutzrecht</a
+                                >
+                            </li>
+                        </ul>
+                    </details>
+                </div>
+
+                <!-- Circles which indicates the steps of the form: -->
+                <div style="text-align: center; margin-top: 40px">
+                    <span id="step_0" class="step"></span>
+                    <span id="step_1" class="step"></span>
+                    <span id="step_2" class="step"></span>
+                    <span id="step_3" class="step"></span>
+                    <span id="step_4" class="step"></span>
+                </div>
+
+                <div class="impress" onclick="showImpress()">
+                    Impressum & Datenschutz
+                </div>
+            </div>
+        </form>
+
+        <script>
+            let daten_andere_rechte = false;
+            let daten_urhg = false;
+            let datenbank = false;
+            let datenbankwerk = false;
+
+            function showImpress() {
+                document.getElementById('impressDiv').style.display = 'block';
+                document.getElementById('wizzardDiv').style.display = 'none';
+            }
+            function closeImpress() {
+                document.getElementById('impressDiv').style.display = 'none';
+                document.getElementById('wizzardDiv').style.display = 'block';
+            }
+
+            function step(tab, val) {
+                // einführung
+                if (tab === 'tab_0') {
+                    document.getElementById('tab_0').style.display = 'none';
+                    document.getElementById('tab_1').style.display = 'block';
+                    document.getElementById('intro').style.display = 'none';
+                    document.getElementById('step_0').className +=
+                        ' finish active';
+                    // daten
+                } else if (tab === 'tab_1') {
+                    document.getElementById('tab_1').style.display = 'none';
+                    if (val === 'yes') {
+                        /*
+                        document.getElementById(
+                            'data_other_rights_div',
+                        ).style.display = 'block';
+                        document.getElementById('links').style.display =
+                            'block';
+                        const steps = document.getElementsByClassName('step');
+                        for (let i = 0; i < steps.length; i++) {
+                            steps[i].className += ' finishred active';
+                        }
+                        */
+                        daten_andere_rechte = true;
+                        document.getElementById('step_1').className +=
+                            ' finishred active';
+                    } else {
+                        document.getElementById('step_1').className +=
+                            ' finish active';
+                    }
+                    document.getElementById('tab_2').style.display = 'block';
+
+                    //  datensätze
+                } else if (tab === 'tab_2') {
+                    document.getElementById('tab_2').style.display = 'none';
+                    document.getElementById('tab_3').style.display = 'block';
+                    if (val === 'yes') {
+                        daten_urhg = true;
+                    }
+                    document.getElementById('step_2').className +=
+                        ' finish active';
+                }
+                // datenbank
+                else if (tab === 'tab_3') {
+                    document.getElementById('tab_3').style.display = 'none';
+                    document.getElementById('tab_4').style.display = 'block';
+                    document.getElementById('step_3').className +=
+                        ' finish active';
+                    if (val === 'yes') {
+                        datenbank = true;
+                    }
+                    // datenbankwerk
+                } else if (tab === 'tab_4') {
+                    if (val === 'yes') {
+                        datenbankwerk = true;
+                    }
+                    document.getElementById('tab_4').style.display = 'none';
+                    document.getElementById('step_4').className +=
+                        ' finish active';
+
+                    // daten andere rechte
+
+                    if (daten_andere_rechte === true) {
+                        document.getElementById(
+                            'data_other_rights_div',
+                        ).style.display = 'block';
+                        document.getElementById('links').style.display =
+                            'block';
+                        const steps = document.getElementsByClassName('step');
+                        for (let i = 0; i < steps.length; i++) {
+                            steps[i].className += ' finishred active';
+                        }
+                    }
+
+                    // daten
+                    else if (
+                        daten_urhg === false &&
+                        datenbank === false &&
+                        datenbankwerk === false
+                    ) {
+                        document.getElementById('data').style.display = 'block';
+                        document.getElementById('infos').style.display =
+                            'block';
+                        document.getElementById('links').style.display =
+                            'block';
+                    }
+                    // daten urhg
+                    else if (
+                        daten_urhg === true &&
+                        datenbank === false &&
+                        datenbankwerk === false
+                    ) {
+                        document.getElementById('data_urhg').style.display =
+                            'block';
+                        document.getElementById('infos').style.display =
+                            'block';
+                        document.getElementById('links').style.display =
+                            'block';
+                    }
+
+                    // daten & datenbank
+                    else if (
+                        daten_urhg === false &&
+                        datenbank === true &&
+                        datenbankwerk === false
+                    ) {
+                        document.getElementById('data_database').style.display =
+                            'block';
+                        document.getElementById('infos').style.display =
+                            'block';
+                        document.getElementById('links').style.display =
+                            'block';
+                    }
+
+                    // daten urhg & datenbank
+                    else if (
+                        daten_urhg === true &&
+                        datenbank === true &&
+                        datenbankwerk === false
+                    ) {
+                        document.getElementById(
+                            'data_urhg_database',
+                        ).style.display = 'block';
+                        document.getElementById('infos').style.display =
+                            'block';
+                        document.getElementById('links').style.display =
+                            'block';
+                    }
+
+                    // daten & datenbankwerk
+                    else if (daten_urhg === false && datenbankwerk === true) {
+                        document.getElementById(
+                            'data_database_work',
+                        ).style.display = 'block';
+                        document.getElementById('infos').style.display =
+                            'block';
+                        document.getElementById('links').style.display =
+                            'block';
+                    }
+
+                    // daten urgh & datenbankwerk
+                    else if (daten_urhg === true && datenbankwerk === true) {
+                        document.getElementById(
+                            'data_urhg_database_work',
+                        ).style.display = 'block';
+                        document.getElementById('infos').style.display =
+                            'block';
+                        document.getElementById('links').style.display =
+                            'block';
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
