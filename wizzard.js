@@ -11,18 +11,22 @@ function closeImpress() {
   document.getElementById('impressDiv').style.display = 'none';
   document.getElementById('wizzardDiv').style.display = 'block';
 }
+function showTab(tabId) {
+    console.log('showing tab', tabId);
+    document.querySelectorAll('.tab').forEach(el => {
+        console.log(el);
+        el.classList.remove('show');
+    });
+
+    document.getElementById(tabId).classList.add('show');
+}
 
 function step(tab, val) {
-  // einführung
-  if (tab === 'tab_0') {
-    document.getElementById('tab_0').style.display = 'none';
-    document.getElementById('tab_1').style.display = 'block';
-    document.getElementById('intro').style.display = 'none';
+  if (tab === 'tab_0') { // einführung
     document.getElementById('step_0').className +=
     ' finish active';
-    // daten
-  } else if (tab === 'tab_1') {
-    document.getElementById('tab_1').style.display = 'none';
+    showTab('tab_1');
+  } else if (tab === 'tab_1') { // daten
     if (val === 'yes') {
       /*
       document.getElementById(
@@ -42,124 +46,85 @@ function step(tab, val) {
       document.getElementById('step_1').className +=
       ' finish active';
     }
-    document.getElementById('tab_2').style.display = 'block';
+    showTab('tab_2');
 
-  //  datensätze
-  } else if (tab === 'tab_2') {
-    document.getElementById('tab_2').style.display = 'none';
-    document.getElementById('tab_3').style.display = 'block';
+  } else if (tab === 'tab_2') { //  datensätze
     if (val === 'yes') {
       daten_urhg = true;
     }
     document.getElementById('step_2').className +=
     ' finish active';
+    showTab('tab_3');
   }
-  // datenbank
-  else if (tab === 'tab_3') {
-    document.getElementById('tab_3').style.display = 'none';
-    document.getElementById('tab_4').style.display = 'block';
-    document.getElementById('step_3').className +=
-    ' finish active';
+  else if (tab === 'tab_3') { // datenbank
     if (val === 'yes') {
       datenbank = true;
     }
-    // datenbankwerk
-  } else if (tab === 'tab_4') {
+    document.getElementById('step_3').className +=
+    ' finish active';
+    showTab('tab_4');
+  } else if (tab === 'tab_4') { // datenbankwerk
     if (val === 'yes') {
       datenbankwerk = true;
     }
-    document.getElementById('tab_4').style.display = 'none';
+    showTab('links');
     document.getElementById('step_4').className +=
     ' finish active';
 
-    // daten andere rechte
-
-    if (daten_andere_rechte === true) {
-      document.getElementById(
-        'data_other_rights_div',
-      ).style.display = 'block';
-      document.getElementById('links').style.display =
-      'block';
+    if (daten_andere_rechte === true) { // daten andere rechte
+      document.getElementById('data_other_rights_div').style.display = 'block';
       const steps = document.getElementsByClassName('step');
       for (let i = 0; i < steps.length; i++) {
         steps[i].className += ' finishred active';
       }
-    }
-
-    // daten
-    else if (
+    } else if (
       daten_urhg === false &&
       datenbank === false &&
       datenbankwerk === false
-    ) {
+    ) { // daten
       document.getElementById('data').style.display = 'block';
       document.getElementById('infos').style.display =
       'block';
-      document.getElementById('links').style.display =
-      'block';
     }
-    // daten urhg
     else if (
       daten_urhg === true &&
       datenbank === false &&
       datenbankwerk === false
-    ) {
+    ) { // daten urhg
       document.getElementById('data_urhg').style.display =
       'block';
       document.getElementById('infos').style.display =
       'block';
-      document.getElementById('links').style.display =
-      'block';
-    }
-
-    // daten & datenbank
-    else if (
+    } else if (
       daten_urhg === false &&
       datenbank === true &&
       datenbankwerk === false
-    ) {
+    ) { // daten & datenbank
       document.getElementById('data_database').style.display =
       'block';
       document.getElementById('infos').style.display =
       'block';
-      document.getElementById('links').style.display =
-      'block';
-    }
-
-    // daten urhg & datenbank
-    else if (
+    } else if (
       daten_urhg === true &&
       datenbank === true &&
       datenbankwerk === false
-    ) {
+    ) { // daten urhg & datenbank
       document.getElementById(
         'data_urhg_database',
       ).style.display = 'block';
       document.getElementById('infos').style.display =
       'block';
-      document.getElementById('links').style.display =
-      'block';
-    }
-
-    // daten & datenbankwerk
-    else if (daten_urhg === false && datenbankwerk === true) {
+    } else if (daten_urhg === false && datenbankwerk === true) { // daten & datenbankwerk
       document.getElementById(
         'data_database_work',
       ).style.display = 'block';
       document.getElementById('infos').style.display =
       'block';
-      document.getElementById('links').style.display =
-      'block';
-    }
-
-    // daten urgh & datenbankwerk
-    else if (daten_urhg === true && datenbankwerk === true) {
+    } else if (daten_urhg === true && datenbankwerk === true) { // daten urgh & datenbankwerk
       document.getElementById(
         'data_urhg_database_work',
       ).style.display = 'block';
       document.getElementById('infos').style.display =
-      'block';
-      document.getElementById('links').style.display =
       'block';
     }
   }

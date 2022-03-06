@@ -42,6 +42,9 @@ input.invalid {
 .tab {
   display: none;
 }
+.show {
+  display: block;
+}
 
 button {
   background-color: #04aa6d;
