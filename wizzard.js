@@ -66,44 +66,43 @@ function step(tab, val) {
     showTab('tab_4');
   } else if (tab === 'tab_4') { // datenbankwerk
     datenbankwerk = (val === 'yes');
-    showTab('links');
     document.getElementById('step_4').className += ' completed green';
+    showTabs(['links', 'infos']);
 
     if (
       daten_urhg === false &&
       datenbank === false &&
-      datenbankwerk === false
-    ) { // daten
-      document.getElementById('data').style.display = 'block';
-      document.getElementById('infos').style.display = 'block';
-    }
-    else if (
+      datenbankwerk === false) {
+        // daten
+        document.getElementById('data').style.display = 'block';
+    } else if (
       daten_urhg === true &&
       datenbank === false &&
-      datenbankwerk === false
-    ) { // daten urhg
-      document.getElementById('data_urhg').style.display = 'block';
-      document.getElementById('infos').style.display = 'block';
+      datenbankwerk === false) {
+        // daten urhg
+        document.getElementById('data_urhg').style.display = 'block';
     } else if (
       daten_urhg === false &&
       datenbank === true &&
-      datenbankwerk === false
-    ) { // daten & datenbank
-      document.getElementById('data_database').style.display = 'block';
-      document.getElementById('infos').style.display = 'block';
+      datenbankwerk === false) {
+        // daten & datenbank
+        document.getElementById('data_database').style.display = 'block';
     } else if (
       daten_urhg === true &&
       datenbank === true &&
-      datenbankwerk === false
-    ) { // daten urhg & datenbank
-      document.getElementById('data_urhg_database').style.display = 'block';
-      document.getElementById('infos').style.display = 'block';
-    } else if (daten_urhg === false && datenbankwerk === true) { // daten & datenbankwerk
-      document.getElementById('data_database_work').style.display = 'block';
-      document.getElementById('infos').style.display = 'block';
-    } else if (daten_urhg === true && datenbankwerk === true) { // daten urgh & datenbankwerk
-      document.getElementById('data_urhg_database_work').style.display = 'block';
-      document.getElementById('infos').style.display = 'block';
+      datenbankwerk === false) {
+        // daten urhg & datenbank
+        document.getElementById('data_urhg_database').style.display = 'block';
+    } else if (
+      daten_urhg === false &&
+      datenbankwerk === true) {
+        // daten & datenbankwerk
+        document.getElementById('data_database_work').style.display = 'block';
+    } else if (
+      daten_urhg === true &&
+      datenbankwerk === true) {
+        // daten urgh & datenbankwerk
+        document.getElementById('data_urhg_database_work').style.display = 'block';
     }
   }
 }
