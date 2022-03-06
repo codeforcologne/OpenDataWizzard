@@ -49,7 +49,7 @@ function step(tab, val) {
     daten_andere_rechte = (val === 'yes');
     if (daten_andere_rechte) {
       document.getElementById('step_1').className += ' completed red';
-      showTabs(['data_other_rights_div', 'links']);
+      showTabs(['data_other_rights_div', 'links', 'repeat']);
     } else {
       document.getElementById('step_1').className += ' completed green';
       showTab('tab_2');
@@ -67,7 +67,7 @@ function step(tab, val) {
   } else if (tab === 'tab_4') { // datenbankwerk
     datenbankwerk = (val === 'yes');
     document.getElementById('step_4').className += ' completed green';
-    showTabs(['links', 'infos']);
+    showTabs(['links', 'infos', 'repeat']);
 
     if (
       daten_urhg === false &&

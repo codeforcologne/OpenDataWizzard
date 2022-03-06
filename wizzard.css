@@ -67,6 +67,12 @@ button:hover {
   background-color: #cd5c5c;
 }
 
+#repeat button {
+  background-color: lightgray;
+  color: #333;
+  margin-top: 2em;
+}
+
 /* Make circles that indicate the steps of the form: */
 .step {
   height: 15px;
