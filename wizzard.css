@@ -108,3 +108,7 @@ button:hover {
   border-radius: 50%;
   display: inline-block;
 }
+
+summary {
+  cursor: pointer;
+}
