@@ -46,7 +46,7 @@ function step(tab, val) {
     document.getElementById('step_0').className += ' completed';
     showTab('tab_1');
   } else if (tab === 'tab_1') { // daten
-    daten_andere_rechte = (val === 'yes');
+    daten_andere_rechte = (val === 'no');
     if (daten_andere_rechte) {
       document.getElementById('step_1').className += ' completed red';
       showTabs(['data_other_rights_div', 'links', 'repeat']);
