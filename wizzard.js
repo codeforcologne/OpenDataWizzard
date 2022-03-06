@@ -23,8 +23,7 @@ function showTab(tabId) {
 
 function step(tab, val) {
   if (tab === 'tab_0') { // einführung
-    document.getElementById('step_0').className +=
-    ' finish active';
+    document.getElementById('step_0').className += ' finish active';
     showTab('tab_1');
   } else if (tab === 'tab_1') { // daten
     if (val === 'yes') {
@@ -40,36 +39,25 @@ function step(tab, val) {
       }
       */
       daten_andere_rechte = true;
-      document.getElementById('step_1').className +=
-      ' finishred active';
+      document.getElementById('step_1').className += ' finishred active';
     } else {
-      document.getElementById('step_1').className +=
-      ' finish active';
+      document.getElementById('step_1').className += ' finish active';
     }
     showTab('tab_2');
 
   } else if (tab === 'tab_2') { //  datensätze
-    if (val === 'yes') {
-      daten_urhg = true;
-    }
-    document.getElementById('step_2').className +=
-    ' finish active';
+    daten_urhg = (val === 'yes');
+    document.getElementById('step_2').className += ' finish active';
     showTab('tab_3');
   }
   else if (tab === 'tab_3') { // datenbank
-    if (val === 'yes') {
-      datenbank = true;
-    }
-    document.getElementById('step_3').className +=
-    ' finish active';
+    datenbank = (val === 'yes');
+    document.getElementById('step_3').className += ' finish active';
     showTab('tab_4');
   } else if (tab === 'tab_4') { // datenbankwerk
-    if (val === 'yes') {
-      datenbankwerk = true;
-    }
+    datenbankwerk = (val === 'yes');
     showTab('links');
-    document.getElementById('step_4').className +=
-    ' finish active';
+    document.getElementById('step_4').className += ' finish active';
 
     if (daten_andere_rechte === true) { // daten andere rechte
       document.getElementById('data_other_rights_div').style.display = 'block';
@@ -83,49 +71,35 @@ function step(tab, val) {
       datenbankwerk === false
     ) { // daten
       document.getElementById('data').style.display = 'block';
-      document.getElementById('infos').style.display =
-      'block';
+      document.getElementById('infos').style.display = 'block';
     }
     else if (
       daten_urhg === true &&
       datenbank === false &&
       datenbankwerk === false
     ) { // daten urhg
-      document.getElementById('data_urhg').style.display =
-      'block';
-      document.getElementById('infos').style.display =
-      'block';
+      document.getElementById('data_urhg').style.display = 'block';
+      document.getElementById('infos').style.display = 'block';
     } else if (
       daten_urhg === false &&
       datenbank === true &&
       datenbankwerk === false
     ) { // daten & datenbank
-      document.getElementById('data_database').style.display =
-      'block';
-      document.getElementById('infos').style.display =
-      'block';
+      document.getElementById('data_database').style.display = 'block';
+      document.getElementById('infos').style.display = 'block';
     } else if (
       daten_urhg === true &&
       datenbank === true &&
       datenbankwerk === false
     ) { // daten urhg & datenbank
-      document.getElementById(
-        'data_urhg_database',
-      ).style.display = 'block';
-      document.getElementById('infos').style.display =
-      'block';
+      document.getElementById('data_urhg_database').style.display = 'block';
+      document.getElementById('infos').style.display = 'block';
     } else if (daten_urhg === false && datenbankwerk === true) { // daten & datenbankwerk
-      document.getElementById(
-        'data_database_work',
-      ).style.display = 'block';
-      document.getElementById('infos').style.display =
-      'block';
+      document.getElementById('data_database_work').style.display = 'block';
+      document.getElementById('infos').style.display = 'block';
     } else if (daten_urhg === true && datenbankwerk === true) { // daten urgh & datenbankwerk
-      document.getElementById(
-        'data_urhg_database_work',
-      ).style.display = 'block';
-      document.getElementById('infos').style.display =
-      'block';
+      document.getElementById('data_urhg_database_work').style.display = 'block';
+      document.getElementById('infos').style.display = 'block';
     }
   }
 }
