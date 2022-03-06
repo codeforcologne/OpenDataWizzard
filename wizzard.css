@@ -72,7 +72,7 @@ button:hover {
   height: 15px;
   width: 15px;
   margin: 0 2px;
-  background-color: #bbbbbb;
+  background-color: darkgray;
   border: none;
   border-radius: 50%;
   display: inline-block;
@@ -80,15 +80,18 @@ button:hover {
 }
 
 .step.active {
+  background-color: gray;
   opacity: 1;
 }
 
 /* Mark the steps that are finished and valid: */
-.step.finish {
+.step.completed {
+  background-color: gray;
+}
+.step.green {
   background-color: #04aa6d;
 }
-
-.step.finishred {
+.step.red {
   background-color: red;
 }
 

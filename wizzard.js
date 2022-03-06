@@ -7,65 +7,69 @@ function showImpress() {
   document.getElementById('impressDiv').style.display = 'block';
   document.getElementById('wizzardDiv').style.display = 'none';
 }
+
 function closeImpress() {
   document.getElementById('impressDiv').style.display = 'none';
   document.getElementById('wizzardDiv').style.display = 'block';
 }
-function showTab(tabId) {
-    console.log('showing tab', tabId);
-    document.querySelectorAll('.tab').forEach(el => {
-        console.log(el);
-        el.classList.remove('show');
-    });
 
+function showTabs(tabIds) {
+  console.log('showing tabs', tabIds);
+
+  // hide all tabs
+  document.querySelectorAll('.tab').forEach(el => {
+    el.classList.remove('show');
+  });
+
+  // deactive all circles
+  document.querySelectorAll('.step').forEach(el => {
+    el.classList.remove('active');
+  });
+
+  for (var tabId of tabIds) {
+    // show tab
     document.getElementById(tabId).classList.add('show');
+
+    // set step circle to `active`
+    if (tabId.startsWith('tab_')) {
+      document.getElementById(tabId.replace('tab_', 'step_')).classList.add('active');
+    }
+  }
+}
+
+function showTab(tabId) {
+  showTabs([tabId]);
 }
 
 function step(tab, val) {
   if (tab === 'tab_0') { // einführung
-    document.getElementById('step_0').className += ' finish active';
+    document.getElementById('step_0').className += ' completed';
     showTab('tab_1');
   } else if (tab === 'tab_1') { // daten
-    if (val === 'yes') {
-      /*
-      document.getElementById(
-        'data_other_rights_div',
-      ).style.display = 'block';
-      document.getElementById('links').style.display =
-      'block';
-      const steps = document.getElementsByClassName('step');
-      for (let i = 0; i < steps.length; i++) {
-        steps[i].className += ' finishred active';
-      }
-      */
-      daten_andere_rechte = true;
-      document.getElementById('step_1').className += ' finishred active';
+    daten_andere_rechte = (val === 'yes');
+    if (daten_andere_rechte) {
+      document.getElementById('step_1').className += ' completed red';
+      showTabs(['data_other_rights_div', 'links']);
     } else {
-      document.getElementById('step_1').className += ' finish active';
+      document.getElementById('step_1').className += ' completed green';
+      showTab('tab_2');
     }
-    showTab('tab_2');
 
   } else if (tab === 'tab_2') { //  datensätze
     daten_urhg = (val === 'yes');
-    document.getElementById('step_2').className += ' finish active';
+    document.getElementById('step_2').className += ' completed green';
     showTab('tab_3');
   }
   else if (tab === 'tab_3') { // datenbank
     datenbank = (val === 'yes');
-    document.getElementById('step_3').className += ' finish active';
+    document.getElementById('step_3').className += ' completed green';
     showTab('tab_4');
   } else if (tab === 'tab_4') { // datenbankwerk
     datenbankwerk = (val === 'yes');
     showTab('links');
-    document.getElementById('step_4').className += ' finish active';
+    document.getElementById('step_4').className += ' completed green';
 
-    if (daten_andere_rechte === true) { // daten andere rechte
-      document.getElementById('data_other_rights_div').style.display = 'block';
-      const steps = document.getElementsByClassName('step');
-      for (let i = 0; i < steps.length; i++) {
-        steps[i].className += ' finishred active';
-      }
-    } else if (
+    if (
       daten_urhg === false &&
       datenbank === false &&
       datenbankwerk === false
