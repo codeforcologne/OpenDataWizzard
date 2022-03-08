@@ -10,108 +10,7 @@
     <meta name="author" content="OK Lab Köln" />
     <meta name="title" content="OpenDataWizzard" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #f1f1f1;
-        }
-
-        .impress {
-            position: relative;
-            right: 0px;
-        }
-        .impress:hover {
-            cursor: pointer;
-        }
-
-        #regForm {
-            background-color: #ffffff;
-            margin: 100px auto;
-            padding: 40px;
-            width: 70%;
-            min-width: 300px;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        input {
-            padding: 10px;
-            /*width: 100%;*/
-            font-size: 17px;
-            border: 1px solid #aaaaaa;
-        }
-
-        /* Mark input boxes that gets an error on validation: */
-        input.invalid {
-            background-color: #ffdddd;
-        }
-
-        /* Hide all steps by default: */
-        .tab {
-            display: none;
-        }
-
-        button {
-            background-color: #04aa6d;
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 17px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            opacity: 0.8;
-        }
-
-        #prevBtn {
-            background-color: #cd5c5c;
-        }
-
-        .redButton {
-            background-color: #cd5c5c;
-        }
-
-        /* Make circles that indicate the steps of the form: */
-        .step {
-            height: 15px;
-            width: 15px;
-            margin: 0 2px;
-            background-color: #bbbbbb;
-            border: none;
-            border-radius: 50%;
-            display: inline-block;
-            opacity: 0.5;
-        }
-
-        .step.active {
-            opacity: 1;
-        }
-
-        /* Mark the steps that are finished and valid: */
-        .step.finish {
-            background-color: #04aa6d;
-        }
-
-        .step.finishred {
-            background-color: red;
-        }
-
-        .reddot {
-            height: 25px;
-            width: 25px;
-            background-color: red;
-            border-radius: 50%;
-            display: inline-block;
-        }
-        .impressDiv {
-        }
-    </style>
+    <link rel="stylesheet" href="wizzard.css">
     <body>
         <title>OpenDataWizzard</title>
 
@@ -135,7 +34,7 @@
                 <p>&nbsp;</p>
             </div>
             <div id="wizzardDiv">
-                <div id="tab_0">
+                <div id="tab_0" class="tab show">
                     <h1>Open&shy;Data&shy;Wizzard</h1>
                     <p>
                         <strong
@@ -271,9 +170,9 @@
                         <li>...</li>
                     </ul>
                     <p>
-                        <strong>Ist dies bei den Daten der Fall?</strong> Bei
-                        einer Unsicherheit ist dies in jedem Fall vorab zu
-                        prüfen!
+                        <strong>Sind die Daten frei von diesen genannten
+                          Schutzrechten Dritter?</strong> Bei einer Unsicherheit
+                          ist dies in jedem Fall vorab zu prüfen!
                     </p>
 
                     <div style="overflow: auto">
@@ -1007,9 +906,19 @@
                     </details>
                 </div>
 
+                <div id="repeat" class="tab">
+                  <div style="overflow: auto">
+                      <div style="float: right">
+                          <button type="button" onclick="location.reload()">
+                            Erneut starten!
+                          </button>
+                      </div>
+                  </div>
+                </div>
+
                 <!-- Circles which indicates the steps of the form: -->
                 <div style="text-align: center; margin-top: 40px">
-                    <span id="step_0" class="step"></span>
+                    <span id="step_0" class="step active"></span>
                     <span id="step_1" class="step"></span>
                     <span id="step_2" class="step"></span>
                     <span id="step_3" class="step"></span>
@@ -1022,173 +931,6 @@
             </div>
         </form>
 
-        <script>
-            let daten_andere_rechte = false;
-            let daten_urhg = false;
-            let datenbank = false;
-            let datenbankwerk = false;
-
-            function showImpress() {
-                document.getElementById('impressDiv').style.display = 'block';
-                document.getElementById('wizzardDiv').style.display = 'none';
-            }
-            function closeImpress() {
-                document.getElementById('impressDiv').style.display = 'none';
-                document.getElementById('wizzardDiv').style.display = 'block';
-            }
-
-            function step(tab, val) {
-                // einführung
-                if (tab === 'tab_0') {
-                    document.getElementById('tab_0').style.display = 'none';
-                    document.getElementById('tab_1').style.display = 'block';
-                    document.getElementById('intro').style.display = 'none';
-                    document.getElementById('step_0').className +=
-                        ' finish active';
-                    // daten
-                } else if (tab === 'tab_1') {
-                    document.getElementById('tab_1').style.display = 'none';
-                    if (val === 'yes') {
-                        /*
-                        document.getElementById(
-                            'data_other_rights_div',
-                        ).style.display = 'block';
-                        document.getElementById('links').style.display =
-                            'block';
-                        const steps = document.getElementsByClassName('step');
-                        for (let i = 0; i < steps.length; i++) {
-                            steps[i].className += ' finishred active';
-                        }
-                        */
-                        daten_andere_rechte = true;
-                        document.getElementById('step_1').className +=
-                            ' finishred active';
-                    } else {
-                        document.getElementById('step_1').className +=
-                            ' finish active';
-                    }
-                    document.getElementById('tab_2').style.display = 'block';
-
-                    //  datensätze
-                } else if (tab === 'tab_2') {
-                    document.getElementById('tab_2').style.display = 'none';
-                    document.getElementById('tab_3').style.display = 'block';
-                    if (val === 'yes') {
-                        daten_urhg = true;
-                    }
-                    document.getElementById('step_2').className +=
-                        ' finish active';
-                }
-                // datenbank
-                else if (tab === 'tab_3') {
-                    document.getElementById('tab_3').style.display = 'none';
-                    document.getElementById('tab_4').style.display = 'block';
-                    document.getElementById('step_3').className +=
-                        ' finish active';
-                    if (val === 'yes') {
-                        datenbank = true;
-                    }
-                    // datenbankwerk
-                } else if (tab === 'tab_4') {
-                    if (val === 'yes') {
-                        datenbankwerk = true;
-                    }
-                    document.getElementById('tab_4').style.display = 'none';
-                    document.getElementById('step_4').className +=
-                        ' finish active';
-
-                    // daten andere rechte
-
-                    if (daten_andere_rechte === true) {
-                        document.getElementById(
-                            'data_other_rights_div',
-                        ).style.display = 'block';
-                        document.getElementById('links').style.display =
-                            'block';
-                        const steps = document.getElementsByClassName('step');
-                        for (let i = 0; i < steps.length; i++) {
-                            steps[i].className += ' finishred active';
-                        }
-                    }
-
-                    // daten
-                    else if (
-                        daten_urhg === false &&
-                        datenbank === false &&
-                        datenbankwerk === false
-                    ) {
-                        document.getElementById('data').style.display = 'block';
-                        document.getElementById('infos').style.display =
-                            'block';
-                        document.getElementById('links').style.display =
-                            'block';
-                    }
-                    // daten urhg
-                    else if (
-                        daten_urhg === true &&
-                        datenbank === false &&
-                        datenbankwerk === false
-                    ) {
-                        document.getElementById('data_urhg').style.display =
-                            'block';
-                        document.getElementById('infos').style.display =
-                            'block';
-                        document.getElementById('links').style.display =
-                            'block';
-                    }
-
-                    // daten & datenbank
-                    else if (
-                        daten_urhg === false &&
-                        datenbank === true &&
-                        datenbankwerk === false
-                    ) {
-                        document.getElementById('data_database').style.display =
-                            'block';
-                        document.getElementById('infos').style.display =
-                            'block';
-                        document.getElementById('links').style.display =
-                            'block';
-                    }
-
-                    // daten urhg & datenbank
-                    else if (
-                        daten_urhg === true &&
-                        datenbank === true &&
-                        datenbankwerk === false
-                    ) {
-                        document.getElementById(
-                            'data_urhg_database',
-                        ).style.display = 'block';
-                        document.getElementById('infos').style.display =
-                            'block';
-                        document.getElementById('links').style.display =
-                            'block';
-                    }
-
-                    // daten & datenbankwerk
-                    else if (daten_urhg === false && datenbankwerk === true) {
-                        document.getElementById(
-                            'data_database_work',
-                        ).style.display = 'block';
-                        document.getElementById('infos').style.display =
-                            'block';
-                        document.getElementById('links').style.display =
-                            'block';
-                    }
-
-                    // daten urgh & datenbankwerk
-                    else if (daten_urhg === true && datenbankwerk === true) {
-                        document.getElementById(
-                            'data_urhg_database_work',
-                        ).style.display = 'block';
-                        document.getElementById('infos').style.display =
-                            'block';
-                        document.getElementById('links').style.display =
-                            'block';
-                    }
-                }
-            }
-        </script>
+        <script src="wizzard.js" charset="utf-8"></script>
     </body>
 </html>
