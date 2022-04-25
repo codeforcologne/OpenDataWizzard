@@ -1,4 +1,7 @@
 # OpenDataWizzard
 in der Mache
 
-https://htmlpreview.github.io/?https://github.com/codeforcologne/OpenDataWizzard/blob/main/wizzard.html
+Preview: https://codeforcologne.github.io/OpenDataWizzard/
+
+## Lizenz
+Lizenziert unter der [Creative Commons Zero v1.0 Universal-Lizenz](./LICENSE).
