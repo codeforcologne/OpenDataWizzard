@@ -1,5 +1,7 @@
 # OpenDataWizzard
-in der Mache
+**Eine kleine Hilfestellung um Daten und deren Sammlungen optimal für alle verfügbar zu machen.**
+
+Schritt für Schritt werden im Folgenden die Unterschiede zwischen Daten, Datensätzen, Datenbanken und Datenbankwerken erklärt und Hilfestellungen bei der Lizenzierung gegeben.
 
 Preview: https://codeforcologne.github.io/OpenDataWizzard/
 
